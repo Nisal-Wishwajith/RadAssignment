@@ -11,11 +11,11 @@ public class Book {
         this.availability = true;
     }
 
-    public String getISBN() {
+    public String getIsbn() {
         return isbn;
     }
 
- public void setISBN(String isbn) {
+ public void setIsbn(String isbn) {
         this.isbn=isbn;
     }
 
