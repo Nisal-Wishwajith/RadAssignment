@@ -8,14 +8,14 @@ public class Book {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
-        this.available = true;
+        this.availability = true;
     }
 
-    public String getISBN() {
+    public String getIsbn() {
         return isbn;
     }
 
- public String setISBN(String isbn) {
+ public void setIsbn(String isbn) {
         this.isbn=isbn;
     }
 
@@ -23,14 +23,14 @@ public class Book {
         return title;
     }
 
-   public String setTitle(String title) {
+   public void setTitle(String title) {
         this.title=title;
     }
 
     public String getAuthor() {
         return author;
     }
- public String setAuthor(String author) {
+ public void setAuthor(String author) {
         this.author=author;
     }
 
