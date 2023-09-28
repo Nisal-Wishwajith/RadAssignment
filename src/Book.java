@@ -1,4 +1,5 @@
 public class Book {
+<<<<<<< HEAD
     private String isbn;
     private String title;
     private String author;
@@ -42,4 +43,7 @@ public class Book {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
+=======
+    
+>>>>>>> udantha
 }
