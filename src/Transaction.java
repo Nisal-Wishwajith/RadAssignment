@@ -40,7 +40,7 @@ public class Transaction {
         this.member=member;
     }
 
-    public LocalDate getBarrowDate() {
+    public LocalDate getBorrowedDate() {
         return barrowDate;
     }
     public void setBarrowDate(LocalDate barrowDate) {
@@ -57,7 +57,9 @@ public class Transaction {
      public LocalDate getReturnDate() {
         return returnDate;
     }
-    public void setReturenDate(LocalDate returnDate) {
+
+
+    public void setReturnDate(LocalDate returnDate) {
         this.returnDate=returnDate;
     }
 

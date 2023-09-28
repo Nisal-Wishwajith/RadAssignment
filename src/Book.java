@@ -1,9 +1,8 @@
 public class Book {
-<<<<<<< HEAD
     private String isbn;
     private String title;
     private String author;
-    private boolean availability;
+    private boolean availability = true;
 
     public Book(String isbn, String title, String author) {
         this.isbn = isbn;
@@ -43,7 +42,4 @@ public class Book {
     public void setAvailability(boolean availability) {
         this.availability = availability;
     }
-=======
-    
->>>>>>> udantha
 }

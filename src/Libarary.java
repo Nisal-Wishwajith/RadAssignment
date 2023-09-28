@@ -1,5 +1,5 @@
 import java.util.*;
-import java.time.LocalDateTime;  
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;  
 
 public class Libarary {
@@ -16,12 +16,24 @@ public class Libarary {
         members.add(member);
     }
 
-    public void removeBook(Book book) {
-        books.remove(book);
+    public boolean removeBook(String isbn) {
+        for (Book book : books) {
+            if (book.getIsbn().equals(isbn)) {
+                books.remove(book);
+                return true;
+            }
+        }
+        return false;
     }
 
-    public void removeMember(Member member) {
-        members.remove(member);
+     public boolean removeMember(String memberId) {
+        for (Member member : members) {
+            if (member.getMemberId().equals(memberId)) {
+                books.remove(member);
+                return true;
+            }
+        }
+        return false;
     }
 
     public Book searchBook(String bookId) {
@@ -58,18 +70,18 @@ public class Libarary {
         return memberNames;
     }
 
-    public Transaction lendBook(Book book, Member member, Date dueDate) {
+    public Transaction lendBook(Book book, Member member, LocalDate dueDate) {
         
         // today's date
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        String borrowedDate = dtf.format(java.time.LocalDateTime.now());
-        String dueDate = dtf.format(java.time.LocalDateTime.now().plusDays(7));
-        Transaction transaction = new Transaction(book, member, borrowedDate, dueDate);
+        LocalDate borrowedDate = LocalDate.now();
+        
+        Transaction transaction = new Transaction("1", book, member, borrowedDate, dueDate);
         transactions.add(transaction);
         return transaction;
     }
 
-    public Transaction returnBook(String transactionId, Date returndate) {
+    public Transaction returnBook(String transactionId, LocalDate returndate) {
         for (Transaction transaction : transactions) {
             if (transaction.getTransactionId().equals(transactionId)) {
                 transaction.setReturnDate(returndate);
@@ -104,9 +116,9 @@ public class Libarary {
         double fine = 0;
         if (transaction.getReturnDate() == null) {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            String today = dtf.format(java.time.LocalDateTime.now());
-            int days = today - transaction.getDueDate();
-            fine = days * 0.5;
+            LocalDate today = LocalDate.now();
+            // LocalDate days = today - transaction.getDueDate();
+            // fine = days * 0.5;
         }
         return fine;
     }
