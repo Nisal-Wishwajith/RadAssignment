@@ -1,10 +1,13 @@
+import java.time.LocalDate;
+import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
         Libarary library = new Libarary();
         Scanner scanner = new Scanner(System.in);
-        int input;
+        int input = 0;
         // String isbn;
         do {
 
@@ -17,8 +20,14 @@ public class App {
             System.out.println("6. Search Member Information");
             System.out.println("7. Display Book Names");
             System.out.println("8. Display Member Names");
-            System.out.println("9. Exit");
+            System.out.println("9. Lend books");
+            System.out.println("10. Return books");
+            System.out.println("11. View Lending Information");
+            System.out.println("12. Display Overdue books");
+            System.out.println("13. Fine Calculation");
+            System.out.println("14. Exit");
             System.out.print("Enter your choice: ");
+
             input = scanner.nextInt();
 
             Scanner sc = new Scanner(System.in);
@@ -30,6 +39,7 @@ public class App {
                     String bookTitle = sc.nextLine();
                     System.out.print("Enter book author: ");
                     String author = sc.nextLine();
+
                     Book newBook = new Book(isbn, bookTitle, author);
                     library.addBook(newBook);
                     System.out.println("Book added successfully!");
@@ -80,17 +90,78 @@ public class App {
                     }
                     break;
                 case 7:
-                    library.displayBookNames();
+                    List<String> bookNames = library.displayBookNames();
+                    for (String bookName : bookNames) {
+                        System.out.println(bookName);
+                    }
                     break;
                 case 8:
-                    library.displayMemberNames();
+                    List<String> memberNames = library.displayMemberNames();
+                    for (String membername : memberNames) {
+                        System.out.println(membername);
+                    }
                     break;
+                
                 case 9:
-                    System.out.println("Exiting Library Management System.");
+                    System.out.print("Enter member ID: ");
+                    memberIdToSearch = sc.nextLine();
+                    foundMember = library.searchMember(memberIdToSearch);
+
+                    System.out.print("Enter book ISBN: ");
+                    bookIdToSearch = sc.nextLine();
+                    foundBook = library.searchBook(bookIdToSearch);
+
+                    LocalDate duDate = LocalDate.now().plusDays(14);
+                    library.lendBook(foundBook, foundMember, duDate);
+
+                    break;
+
+                case 10:
+                    System.out.print("Enter member ID: ");
+                    memberIdToSearch = sc.nextLine();
+                    foundMember = library.searchMember(memberIdToSearch);
+
+                    Transaction transaction = library.searchTransaction(foundMember.getMemberId());
+                    
+                    LocalDate returnDate = LocalDate.now();
+                    String transactionId = transaction.getTransactionId();
+
+                    if (library.returnBook(transactionId, returnDate) != null) {
+                        System.out.println("Book returned successfully!");
+                    }
+
+                    break;
+                
+                case 11:
+                    System.out.print("Enter member ID: ");
+                    memberIdToSearch = sc.nextLine();
+                    foundMember = library.searchMember(memberIdToSearch);
+
+                    transaction = library.searchTransaction(foundMember.getMemberId());
+                    library.viewLendingInformation(transaction);
+                    break;
+                
+                case 12:
+                    library.displayOverDueBooks();
+                    break;
+
+                case 13:
+                    System.out.print("Enter member ID: ");
+                    String memberIdToFine = sc.nextLine();
+
+                    transaction = library.searchTransaction(memberIdToFine);
+                    double fine = library.calculateFine(transaction);
+                    System.out.println("Fine: " + fine);
+                    break;
+                
+                case 14:
+                    System.out.println("Thank you for using the Library Management System!");
+                    break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
+                    break;  
             }
-        } while (input == 9);
+        } while (input != 14);
 
         scanner.close();
     }

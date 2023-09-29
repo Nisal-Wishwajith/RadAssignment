@@ -14,6 +14,7 @@ public class Transaction {
         this.member = member;
         this.barrowDate = barrowDate;
         this.dueDate = dueDate;
+        book.setAvailability(false);
     
     }
 
