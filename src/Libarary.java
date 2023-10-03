@@ -62,9 +62,9 @@ public class Libarary {
         return false;
     }
 
-    public Book searchBook(String bookId) {
+    public Book searchBook(String bookname) {
         for (Book book : books) {
-            if (book.getIsbn().equals(bookId)) {
+            if (book.getTitle().equals(bookname)) {
                 return book;
             }
         }
@@ -111,10 +111,14 @@ public class Libarary {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDate borrowedDate = LocalDate.now();
         book.setAvailability(false);
+        String transId = transactions.size() + 1 + "";
 
-        Transaction transaction = new Transaction("1", book, member, borrowedDate, dueDate);
+        Transaction transaction = new Transaction(transId, book, member, borrowedDate, dueDate);
 
         transactions.add(transaction);
+
+        member.getbookBorrowed().add(book);
+
         return transaction;
     }
 
@@ -170,9 +174,11 @@ public class Libarary {
         } catch (Exception e) {
             System.out.println("Book not returned yet!");
         }
+        System.out.println("Return Date: " + transaction.getReturnDate());
+        System.out.println("Due Date:" + transaction.getDueDate());
 
         if (days > 7) {
-            fine = (days - 7) * 100;
+            fine = (days-7) * 100 + 350;
         } else if (days > 0) {
             fine = days * 50;
         }

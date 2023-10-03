@@ -66,7 +66,7 @@ public class App {
                     System.out.println("Member removed successfully!");
                     break;
                 case 5:
-                    System.out.print("Enter book ISBN to search: ");
+                    System.out.print("Enter book Title to search: ");
                     String bookIdToSearch = sc.nextLine();
                     Book foundBook = library.searchBook(bookIdToSearch);
                     if (foundBook != null) {
@@ -85,6 +85,11 @@ public class App {
                     if (foundMember != null) {
                         System.out.println("Member ID: " + foundMember.getMemberId());
                         System.out.println("Member Name: " + foundMember.getName());
+                        System.out.print("Borrowed Books: ");
+                        for (Book book : foundMember.getbookBorrowed()) {
+                            System.out.print("Book Title: " + book.getTitle() + ", ");
+                        }
+                        System.out.println();
                     } else {
                         System.out.println("Member not found.");
                     }
@@ -107,9 +112,11 @@ public class App {
                     memberIdToSearch = sc.nextLine();
                     foundMember = library.searchMember(memberIdToSearch);
 
-                    System.out.print("Enter book ISBN: ");
+                    System.out.print("Enter book Title: ");
                     bookIdToSearch = sc.nextLine();
                     foundBook = library.searchBook(bookIdToSearch);
+
+                    
 
                     LocalDate duDate = LocalDate.now().plusDays(14);
                     library.lendBook(foundBook, foundMember, duDate);
