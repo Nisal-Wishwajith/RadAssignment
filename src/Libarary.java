@@ -80,9 +80,9 @@ public class Libarary {
         return null;
     }
 
-    public Transaction searchTransaction(String memberId) {
+    public Transaction searchTransaction(String bookId) {
         for (Transaction transaction : transactions) {
-            if (transaction.getMember().getMemberId().equals(memberId)) {
+            if (transaction.getBook().getIsbn().equals(bookId)) {
                 return transaction;
             }
         }

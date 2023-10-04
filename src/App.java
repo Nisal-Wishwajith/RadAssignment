@@ -139,12 +139,12 @@ public class App {
                     break;
                 
                 case 11:
-                    System.out.print("Enter member ID: ");
-                    memberIdToSearch = sc.nextLine();
+                    System.out.print("Enter Book Title : ");
+                    bookTitleToSearch = sc.nextLine();
 
-                    foundMember = library.searchMember(memberIdToSearch);
+                    foundBook = library.searchBook(bookTitleToSearch);
 
-                    transaction = library.searchTransaction(foundMember.getMemberId());
+                    transaction = library.searchTransaction(foundBook.getIsbn());
                     library.viewLendingInformation(transaction);
                     break;
                 
