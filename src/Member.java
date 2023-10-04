@@ -5,11 +5,11 @@ public class Member {
     private String name;
     private List<Book> booksBorrowed;
 
+    //constructor for Member
     public Member(String MemberID, String MemberName) {
         this.memberId = MemberID;
         this.name = MemberName;
         this.booksBorrowed = new ArrayList<Book>();
-        
     }
 
     // getter and setter for MemberID

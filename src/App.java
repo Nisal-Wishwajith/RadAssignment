@@ -14,10 +14,10 @@ public class App {
             System.out.println("\nLibrary Management System Menu:");
             System.out.println("1. Add Book");
             System.out.println("2. Remove Book");
-            System.out.println("3. Register Member");
-            System.out.println("4. Remove Member");
+            System.out.println("3. Register Member");//nisal
+            System.out.println("4. Remove Member");//nisal
             System.out.println("5. Search Book Information");
-            System.out.println("6. Search Member Information");
+            System.out.println("6. Search Member Information");//nisal
             System.out.println("7. Display Book Names");
             System.out.println("8. Display Member Names");
             System.out.println("9. Lend books");
@@ -67,13 +67,12 @@ public class App {
                     break;
                 case 5:
                     System.out.print("Enter book Title to search: ");
-                    String bookIdToSearch = sc.nextLine();
-                    Book foundBook = library.searchBook(bookIdToSearch);
+                    String bookTitleToSearch = sc.nextLine();
+                    Book foundBook = library.searchBook(bookTitleToSearch);
                     if (foundBook != null) {
                         System.out.println("Book ID: " + foundBook.getIsbn());
                         System.out.println("Book Title: " + foundBook.getTitle());
-                        System.out
-                                .println("Availability: " + (foundBook.isAvailable() ? "Available" : "Not Available"));
+                        System.out.println("Availability: " + (foundBook.isAvailable() ? "Available" : "Not Available"));
                     } else {
                         System.out.println("Book not found.");
                     }
@@ -113,8 +112,8 @@ public class App {
                     foundMember = library.searchMember(memberIdToSearch);
 
                     System.out.print("Enter book Title: ");
-                    bookIdToSearch = sc.nextLine();
-                    foundBook = library.searchBook(bookIdToSearch);
+                    bookTitleToSearch = sc.nextLine();
+                    foundBook = library.searchBook(bookTitleToSearch);
 
                     
 
@@ -142,6 +141,7 @@ public class App {
                 case 11:
                     System.out.print("Enter member ID: ");
                     memberIdToSearch = sc.nextLine();
+
                     foundMember = library.searchMember(memberIdToSearch);
 
                     transaction = library.searchTransaction(foundMember.getMemberId());

@@ -15,7 +15,6 @@ public class Transaction {
         this.barrowDate = barrowDate;
         this.dueDate = dueDate;
         book.setAvailability(false);
-    
     }
 
     public String getTransactionId() {
