@@ -8,13 +8,14 @@ public class Transaction {
     private LocalDate dueDate;
     private LocalDate returnDate;
 
+    //constructor for Transaction to assign properties
     public Transaction(String transactionId, Book book, Member member, LocalDate barrowDate, LocalDate dueDate) {
         this.transactionId = transactionId;
         this.book = book;
         this.member = member;
         this.barrowDate = barrowDate;
         this.dueDate = dueDate;
-        book.setAvailability(false);
+
     }
 
     public String getTransactionId() {

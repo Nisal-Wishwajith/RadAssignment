@@ -1,9 +1,13 @@
 import java.util.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;  
 
 public class Libarary {
 
+    private List<Book> books = new ArrayList<>();
+    private List<Member> members = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
+
+    
     Book book1 = new Book("1", "Java", "James Gosling");
     Book book2 = new Book("2", "C++", "Bjarne Stroustrup");
     Book book3 = new Book("3", "Python", "Guido van Rossum");
@@ -15,9 +19,6 @@ public class Libarary {
     Transaction transaction1 = new Transaction("1", book1, member1, LocalDate.now().minusDays(3), LocalDate.now().minusDays(2));
     Transaction transaction2 = new Transaction("2", book2, member2, LocalDate.now().minusDays(10), LocalDate.now().minusDays(8));
 
-    private List<Book> books = new ArrayList<>();
-    private List<Member> members = new ArrayList<>();
-    private List<Transaction> transactions = new ArrayList<>();
 
     public Libarary(){
         books.add(book1);
@@ -30,6 +31,12 @@ public class Libarary {
 
         transactions.add(transaction1);
         transactions.add(transaction2);
+
+        book1.setAvailability(false);
+        book2.setAvailability(false);
+
+        member1.getbookBorrowed().add(book1);
+        member2.getbookBorrowed().add(book2);
 
     }
 
@@ -80,6 +87,15 @@ public class Libarary {
         return null;
     }
 
+
+    public Transaction searchTransaction(String bookId, String memberId) {
+        for (Transaction transaction : transactions) {
+            if (transaction.getBook().getIsbn().equals(bookId) && transaction.getMember().getMemberId().equals(memberId)) {
+                return transaction;
+            }
+        }
+        return null;
+    }
     public Transaction searchTransaction(String bookId) {
         for (Transaction transaction : transactions) {
             if (transaction.getBook().getIsbn().equals(bookId)) {
@@ -108,8 +124,12 @@ public class Libarary {
     public Transaction lendBook(Book book, Member member, LocalDate dueDate) {
         
         // today's date
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         LocalDate borrowedDate = LocalDate.now();
+        
+        if (book.isAvailable() == false) {
+            System.out.println("Book not available");
+            return null;
+        }
         book.setAvailability(false);
         String transId = transactions.size() + 1 + "";
 
